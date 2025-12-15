@@ -33,13 +33,14 @@ EOF
     echo -e "${NONE}"
     
     echo ":: Distribution could not be auto detected. Please select your base distribution."
-    echo 
+    echo
     echo "1: Arch (pacman + aur helper)"
     echo "2: Fedora (dnf)"
     echo "3: OpenSuse (zypper)"
-    echo "4: Show dependencies and install manually for your distribution"
-    echo "5: Cancel"
-    echo 
+    echo "4: Debian/Ubuntu/PikaOS (apt)"
+    echo "5: Show dependencies and install manually for your distribution"
+    echo "6: Cancel"
+    echo
     while true; do
         read -p "Please select: " yn
         case $yn in
@@ -56,10 +57,14 @@ EOF
                 break
                 ;;
             4)
-                $SCRIPT_DIR/dependencies.sh
+                $SCRIPT_DIR/setup-debian.sh
                 break
                 ;;
             5)
+                $SCRIPT_DIR/dependencies.sh
+                break
+                ;;
+            6)
                 echo ":: Installation canceled"
                 exit
                 break
@@ -77,6 +82,8 @@ elif [[ $(_checkCommandExists "dnf") == 0 ]]; then
     $SCRIPT_DIR/setup-fedora.sh
 elif [[ $(_checkCommandExists "zypper") == 0 ]]; then
     $SCRIPT_DIR/setup-opensuse.sh
+elif [[ $(_checkCommandExists "apt") == 0 ]]; then
+    $SCRIPT_DIR/setup-debian.sh
 else
     $SCRIPT_DIR/dependencies.sh
 fi
