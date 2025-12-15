@@ -65,5 +65,9 @@ elif [[ "$1" == "--kill" ]]; then
 elif [[ "$1" == "--select" ]]; then
     select_sidepad
 else
+    # Check if sidepad window exists, if not init it first
+    if [[ $("$SIDEPAD_PATH" --class "$SIDEPAD_CLASS" --test) == "1" ]]; then
+        eval "$SIDEPAD_PATH --class '$SIDEPAD_CLASS' --init '$SIDEPAD_APP'"
+    fi
     eval "$SIDEPAD_PATH --class '$SIDEPAD_CLASS' $SIDEPAD_OPTIONS"
 fi
