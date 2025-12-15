@@ -46,6 +46,7 @@ packages=(
     "wl-clipboard"
     "imagemagick"
     "network-manager-gnome"
+    "libstartup-notification0"  # Required by rofi
     # Notification
     "sway-notification-center"
     # Fonts
